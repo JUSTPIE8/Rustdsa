@@ -46,8 +46,8 @@ impl Transaction {
             None => {}
         }
         self.length -= 1;
-        println!(" head {:?}", &head);
-        head.unwrap().borrow_mut().value.clone()
+        // println!(" head {:?}", &head);
+        head.unwrap().borrow_mut().value.to_owned()
 
         /* Another way of implementation
          * Rc::try_unwrap(head.unwrap())
