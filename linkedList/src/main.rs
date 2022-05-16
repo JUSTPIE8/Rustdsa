@@ -3,7 +3,13 @@ mod singlyLinked;
 use singlyLinked::Transaction;
 type singlyTransaction = Transaction;
 //use singlylinked::Transaction;
-fn main() {}
+fn main() {
+    let mut transaction = doublylinked::Transaction::empty_first();
+    transaction.append("this is a string".to_string());
+    transaction.append("this is a string".to_string());
+
+    println!("{}", transaction.length);
+}
 #[cfg(test)]
 #[test]
 fn singlyLinkedList() {
