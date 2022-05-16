@@ -38,6 +38,30 @@ impl Transaction {
         self.length += 1;
         self.tail = Some(new)
     }
-}
 
-fn main() {}
+    fn pop(&mut self) -> String {
+        let head = self.head.clone();
+        match self.head.take() {
+            Some(value) => self.head = value.borrow_mut().next.take(),
+            None => {}
+        }
+        self.length -= 1;
+        Rc::try_unwrap(head.unwrap())
+            .ok()
+            .expect("something terrible papened")
+            .into_inner()
+            .value
+    }
+}
+fn main() {
+    let mut transaction = Transaction::empty();
+    transaction.append("this is a string".to_string());
+
+    transaction.append("this is a another string".to_string());
+    transaction.append("this is a another string".to_string());
+    transaction.append("this is a another string".to_string());
+    assert_eq!(transaction.length, 4);
+    println!("{}", transaction.pop());
+    println!("{}", transaction.pop());
+    println!("{}", transaction.pop());
+}
