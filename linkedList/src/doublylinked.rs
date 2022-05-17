@@ -49,4 +49,14 @@ impl Transaction {
         self.tail = Some(node);
         println!("{:?}", self);
     }
+    pub fn pop(&mut self) -> String {
+        let head = self.head.clone();
+        match self.head.take() {
+            Some(old) => {
+                self.head = old.borrow_mut().next.clone();
+            }
+            None => {}
+        }
+        head.unwrap().borrow_mut().value.to_owned()
+    }
 }

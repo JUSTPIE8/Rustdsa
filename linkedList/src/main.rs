@@ -9,6 +9,7 @@ fn main() {
     transaction.append("this is a string".to_string());
 
     println!("{}", transaction.length);
+    println!("{}", transaction.pop());
 }
 #[cfg(test)]
 #[test]
