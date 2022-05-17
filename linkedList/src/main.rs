@@ -6,9 +6,11 @@ type singlyTransaction = Transaction;
 fn main() {
     let mut transaction = doublylinked::Transaction::empty_first();
     transaction.append("this is a string".to_string());
-    transaction.append("this is a string".to_string());
+    transaction.append("this is a string1".to_string());
 
     println!("{}", transaction.length);
+    println!("{}", transaction.pop());
+    println!("{}", transaction.pop());
     println!("{}", transaction.pop());
 }
 #[cfg(test)]

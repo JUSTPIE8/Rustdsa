@@ -1,7 +1,7 @@
 use std::rc::Rc;
 
 use std::cell::RefCell;
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct Node {
     value: String,
     next: Link,
@@ -17,7 +17,7 @@ impl Node {
     }
 }
 type Link = Option<Rc<RefCell<Node>>>;
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct Transaction {
     pub length: u8,
     head: Link,
@@ -35,19 +35,14 @@ impl Transaction {
         let node = Node::new(value);
         match self.tail.take() {
             Some(old) => {
-                //   if (self.length <= 0) {
-                //     old.borrow_mut().prev = None
-                // } else {
-                old.borrow_mut().prev = Some(old.clone());
-                // }
-
-                old.borrow_mut().next = Some(node.clone())
+                old.borrow_mut().next = Some(node.clone());
+                node.borrow_mut().prev = Some(old);
             }
             None => self.head = Some(node.clone()),
         }
         self.length += 1;
         self.tail = Some(node);
-        println!("{:?}", self);
+        //   println!("{:?}", self);
     }
 
     pub fn pop(&mut self) -> String {
@@ -58,6 +53,7 @@ impl Transaction {
             }
             None => {}
         }
+        println!("{:?}", head.as_ref().unwrap().borrow_mut().value);
         head.unwrap().borrow_mut().value.to_owned()
     }
 }
