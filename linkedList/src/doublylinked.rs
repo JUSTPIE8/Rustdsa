@@ -35,11 +35,11 @@ impl Transaction {
         let node = Node::new(value);
         match self.tail.take() {
             Some(old) => {
-                if (self.length <= 0) {
-                    old.borrow_mut().prev = None
-                } else {
-                    old.borrow_mut().prev = Some(old.clone())
-                }
+                //   if (self.length <= 0) {
+                //     old.borrow_mut().prev = None
+                // } else {
+                old.borrow_mut().prev = Some(old.clone());
+                // }
 
                 old.borrow_mut().next = Some(node.clone())
             }
@@ -49,6 +49,7 @@ impl Transaction {
         self.tail = Some(node);
         println!("{:?}", self);
     }
+
     pub fn pop(&mut self) -> String {
         let head = self.head.clone();
         match self.head.take() {
