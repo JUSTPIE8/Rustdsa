@@ -59,7 +59,7 @@ impl Transaction {
         head
     }
 }
-
+#[derive(Debug)]
 pub struct ListIterator {
     current: Link,
 }
@@ -78,6 +78,22 @@ impl Iterator for ListIterator {
                 let current = current.borrow();
                 result = Some(current.value.clone());
                 current.next.clone()
+            }
+            None => None,
+        };
+        result
+    }
+}
+impl DoubleEndedIterator for ListIterator {
+    fn next_back(&mut self) -> Option<String> {
+        //  println!("{:?}", &self.current.as_ref().unwrap().borrow_mut().prev);
+        let current = &self.current;
+        let mut result = None;
+        self.current = match current {
+            Some(ref current) => {
+                let current = current.borrow();
+                result = Some(current.value.clone());
+                current.prev.clone()
             }
             None => None,
         };
