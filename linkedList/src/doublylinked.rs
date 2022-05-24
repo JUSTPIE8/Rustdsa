@@ -17,12 +17,13 @@ impl Node {
     }
 }
 type Link = Option<Rc<RefCell<Node>>>;
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone)] //Transaction for performing operation from head or tail
 pub struct Transaction {
     pub length: u8,
     head: Link,
     tail: Link,
 }
+
 impl Transaction {
     pub fn empty_first() -> Transaction {
         Transaction {
@@ -53,7 +54,32 @@ impl Transaction {
             }
             None => {}
         }
-        println!("{:?}", head.as_ref().unwrap().borrow_mut().value);
+        // println!("{:?}", head.as_ref().unwrap().borrow_mut().value);
         head.unwrap().borrow_mut().value.to_owned()
+    }
+}
+
+pub struct ListIterator {
+    current: Link,
+}
+impl ListIterator {
+    fn new(start_at: Link) -> ListIterator {
+        ListIterator { currenet: start_at }
+    }
+}
+impl Iterator for ListIterator {
+    type Item = String;
+    fn next(&mut self) -> Option<Self::Item> {
+        let current = &self.current;
+        let mut result = None;
+        self.current = match current {
+            Some(ref current) => {
+                let current = current.borrow();
+                result = Some(current.value.clone());
+                current.next.clone()
+            }
+            None => None,
+        };
+        result
     }
 }
