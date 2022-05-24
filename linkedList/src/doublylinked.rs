@@ -46,7 +46,7 @@ impl Transaction {
         //   println!("{:?}", self);
     }
 
-    pub fn pop(&mut self) -> String {
+    pub fn pop(&mut self) -> Link {
         let head = self.head.clone();
         match self.head.take() {
             Some(old) => {
@@ -55,7 +55,8 @@ impl Transaction {
             None => {}
         }
         // println!("{:?}", head.as_ref().unwrap().borrow_mut().value);
-        head.unwrap().borrow_mut().value.to_owned()
+        //   head.unwrap().borrow_mut().value.to_owned()
+        head
     }
 }
 
@@ -63,8 +64,8 @@ pub struct ListIterator {
     current: Link,
 }
 impl ListIterator {
-    fn new(start_at: Link) -> ListIterator {
-        ListIterator { currenet: start_at }
+    pub fn new(start_at: Link) -> ListIterator {
+        ListIterator { current: start_at }
     }
 }
 impl Iterator for ListIterator {
