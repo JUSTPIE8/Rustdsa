@@ -74,7 +74,7 @@ impl Iterator for ListIterator {
         let current = &self.current;
         let mut result = None;
         self.current = match current {
-            Some(ref current) => {
+            Some( current) => {
                 let current = current.borrow();
                 result = Some(current.value.clone());
                 current.next.clone()
@@ -90,7 +90,7 @@ impl DoubleEndedIterator for ListIterator {
         let current = &self.current;
         let mut result = None;
         self.current = match current {
-            Some(ref current) => {
+            Some(current) => {
                 let current = current.borrow();
                 result = Some(current.value.clone());
                 current.prev.clone()
