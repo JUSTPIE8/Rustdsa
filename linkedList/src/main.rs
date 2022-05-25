@@ -1,6 +1,6 @@
 mod doublylinked;
 mod singlyLinked;
-use singlyLinked::Transaction;
+mod skip_linked;
 //use singlylinked::Transaction;
 fn main() {}
 #[cfg(test)]
