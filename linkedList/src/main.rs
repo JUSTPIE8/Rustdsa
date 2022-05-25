@@ -1,9 +1,11 @@
 mod doublylinked;
 mod singlyLinked;
 use singlyLinked::Transaction;
-type singlyTransaction = Transaction;
 //use singlylinked::Transaction;
-fn main() {
+fn main() {}
+#[cfg(test)]
+#[test]
+fn doublyLinkedList() {
     let mut transaction = doublylinked::Transaction::empty_first();
     transaction.append("this is a string".to_string());
     transaction.append("this is a string1".to_string());
@@ -26,10 +28,11 @@ fn main() {
     println!("{:?}", iterator.next_back());
     println!("{:?}", iterator.next_back());
 }
+
 #[cfg(test)]
 #[test]
 fn singlyLinkedList() {
-    let mut transaction = singlyTransaction::empty();
+    let mut transaction = singlyLinked::Transaction::empty();
     transaction.append("this is a string".to_string());
 
     transaction.append("this is a another string".to_string());
